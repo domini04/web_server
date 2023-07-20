@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Server</title>
+  <style>
+    body {
+      background-image: none;
+      transition: background-image 0.5s ease;
+    }
+  </style>
+  <script>
+    function sendGetRequest() {
+      fetch('/get-users')
+        .then(response => response.text())
+        .then(data => {
+          document.body.innerHTML += data;
+          document.body.style.backgroundImage = "url('doge.jpg')";
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
+</head>
+<body>
+  <h1>Welcome to the Web Server</h1>
+  <button onclick="sendGetRequest()">Send GET Request</button>
+  <button onclick="refreshPage()">Refresh Page</button>
+</body>
+</html>
