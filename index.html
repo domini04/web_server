@@ -24,11 +24,25 @@
     function refreshPage() {
       location.reload();
     }
+
+    function getVMContent() {
+      fetch('/get-vm-content')
+        .then(response => response.text())
+        .then(data => {
+          const vmContentDiv = document.createElement('div');
+          vmContentDiv.innerHTML = `<h2>VM Content:</h2><pre>${data}</pre>`;
+          document.body.prepend(vmContentDiv);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
   </script>
 </head>
 <body>
   <h1>Welcome to the Web Server</h1>
   <button onclick="sendGetRequest()">Send GET Request</button>
   <button onclick="refreshPage()">Refresh Page</button>
+  <button onclick="getVMContent()">Get VM Content</button>
 </body>
 </html>

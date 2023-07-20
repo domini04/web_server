@@ -5,10 +5,19 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-// Read the contents from ~/vm.txt for the header
-const headerContent = fs.readFileSync('vm.txt', 'utf-8');
+// Endpoint to read the contents from ./vm.txt
+app.get('/get-vm-content', (req, res) => {
+  fs.readFile('./vm.txt', 'utf-8', (err, data) => {
+    if (err) {
+      console.error('Error:', err);
+      res.status(500).send('Error occurred while reading the file.');
+    } else {
+      res.send(data);
+    }
+  });
+});
 
-// Endpoint to handle the GET request and display response
+// Endpoint to handle the GET request and display response from the backend server
 app.get('/get-users', (req, res) => {
   const backendURL = 'http://10.0.0.53:8080/users';
 
@@ -29,11 +38,14 @@ app.get('/get-users', (req, res) => {
   });
 });
 
-// Serve the header content and the static files (doge.jpg and index.html)
+// Serve the static files (doge.jpg and index.html)
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
-  const html = `<h1>${headerContent}</h1><button onclick="sendGetRequest()">Send GET Request</button><button onclick="refreshPage()">Refresh Page</button>`;
+  const html = `<h1>${headerContent}</h1>
+    <button onclick="sendGetRequest()">Send GET Request</button>
+    <button onclick="refreshPage()">Refresh Page</button>
+    <button onclick="getVMContent()">Get VM Content</button>`;
   res.send(html);
 });
 
