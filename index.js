@@ -5,8 +5,6 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-<<<<<<< HEAD
-// Endpoint to read the contents from ./vm.txt
 app.get('/get-vm-content', (req, res) => {
   fs.readFile('./vm.txt', 'utf-8', (err, data) => {
     if (err) {
@@ -17,10 +15,6 @@ app.get('/get-vm-content', (req, res) => {
     }
   });
 });
-=======
-// Read the contents from ~/vm.txt for the header
-const headerContent = fs.readFileSync('./vm.txt', 'utf-8');
->>>>>>> e8cabef43cf04789e878f61b207318a5840b4f03
 
 // Endpoint to handle the GET request and display response from the backend server
 app.get('/get-users', (req, res) => {
