@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 // Read the contents from ~/vm.txt for the header
-const headerContent = fs.readFileSync('vm.txt', 'utf-8');
+const headerContent = fs.readFileSync('./vm.txt', 'utf-8');
 
 // Endpoint to handle the GET request and display response
 app.get('/get-users', (req, res) => {
