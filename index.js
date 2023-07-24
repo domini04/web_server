@@ -5,7 +5,6 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-// Endpoint to read the contents from ./vm.txt
 app.get('/get-vm-content', (req, res) => {
   fs.readFile('./vm.txt', 'utf-8', (err, data) => {
     if (err) {
