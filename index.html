@@ -37,12 +37,45 @@
           console.error('Error:', error);
         });
     }
+    
+    function login() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  })
+  .then(response => response.text())
+  .then(data => {
+    const responseDiv = document.createElement('div');
+    responseDiv.innerHTML = `<h2>Login Response:</h2><pre>${data}</pre>`;
+    document.body.append(responseDiv);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
   </script>
 </head>
 <body>
   <h1>Welcome to the Web Server</h1>
+
+  <!-- Login Form -->
+  <div>
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
+
   <button onclick="sendGetRequest()">Send GET Request</button>
   <button onclick="refreshPage()">Refresh Page</button>
   <button onclick="getVMContent()">Get VM Content</button>
 </body>
+
 </html>

@@ -5,7 +5,6 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-<<<<<<< HEAD
 // Endpoint to read the contents from ./vm.txt
 app.get('/get-vm-content', (req, res) => {
   fs.readFile('./vm.txt', 'utf-8', (err, data) => {
@@ -17,10 +16,6 @@ app.get('/get-vm-content', (req, res) => {
     }
   });
 });
-=======
-// Read the contents from ~/vm.txt for the header
-const headerContent = fs.readFileSync('./vm.txt', 'utf-8');
->>>>>>> e8cabef43cf04789e878f61b207318a5840b4f03
 
 // Endpoint to handle the GET request and display response from the backend server
 app.get('/get-users', (req, res) => {
@@ -57,3 +52,28 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Web server running at http://localhost:${port}`);
 });
+
+app.use(express.json()); //express.json() is a method inbuilt in express to recognize the incoming Request Object as a JSON Object.
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  const authURL = 'http://10.0.0.53:8080/auth/signin';
+
+  // Make the HTTP POST request to the auth server
+  request.post({
+    url: authURL,
+    json: { email, password }
+  }, (error, response, body) => {
+    if (error) {
+      console.error('Error:', error);
+      res.status(500).send('Error occurred while communicating with the auth server.');
+    } else if (response.statusCode !== 200) {
+      console.error('Error:', response.statusCode, body);
+      res.status(500).send('Unexpected response from the auth server.');
+    } else {
+      const responseString = JSON.stringify(body, null, 2);
+      res.send(responseString);
+    }
+  });
+});
+
