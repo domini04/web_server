@@ -5,9 +5,8 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-// Endpoint to read the contents from ./vm.txt
-app.get('/get-vm-content', (req, res) => {
-  fs.readFile('./vm.txt', 'utf-8', (err, data) => {
+app.get('/get-vm-content', (req, res) => { 
+  fs.readFile('./vm.txt', 'utf-8', (err, data) => { //GET 요청이 들어오면 vm.txt 파일을 읽어서 응답으로 보내줌
     if (err) {
       console.error('Error:', err);
       res.status(500).send('Error occurred while reading the file.');
@@ -36,6 +35,10 @@ app.get('/get-users', (req, res) => {
       res.send(htmlResponse);
     }
   });
+});
+
+app.get('/doge', (req, res) => {
+  res.send(`<img src="https://storage.googleapis.com/cdn-bucket-mz-finalproject/doge.jpg" alt="Doge Image">`);
 });
 
 // Serve the static files (doge.jpg and index.html)

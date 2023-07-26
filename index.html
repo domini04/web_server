@@ -24,20 +24,20 @@
     function refreshPage() {
       location.reload();
     }
-
+    //VM 이름 띄우기
     function getVMContent() {
       fetch('/get-vm-content')
         .then(response => response.text())
-        .then(data => {
-          const vmContentDiv = document.createElement('div');
-          vmContentDiv.innerHTML = `<h2>VM Content:</h2><pre>${data}</pre>`;
+        .then(data => { //응답을 받으면 div element를 만들고 페이지의 맨 위에 추가한다. 그리고 응답을 div에 넣는다.
+          const vmContentDiv = document.createElement('div'); 
+          vmContentDiv.innerHTML = `<h2>VM Content:</h2><pre>${data}</pre>`; //pre 태그는 미리 서식을 지정해놓은 텍스트를 표시할 때 사용한다.
           document.body.prepend(vmContentDiv);
         })
         .catch(error => {
           console.error('Error:', error);
         });
     }
-    
+
     function login() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -47,7 +47,7 @@
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ Email, Password })
   })
   .then(response => response.text())
   .then(data => {
@@ -68,14 +68,16 @@
   <!-- Login Form -->
   <div>
     <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+    <input type="email" id="Email" placeholder="Email">
+    <input type="password" id="Password" placeholder="Password">
     <button onclick="login()">Login</button>
   </div>
 
   <button onclick="sendGetRequest()">Send GET Request</button>
   <button onclick="refreshPage()">Refresh Page</button>
   <button onclick="getVMContent()">Get VM Content</button>
+  <button onclick="window.location.href='/doge'">Doge</button>
+
 </body>
 
 </html>
